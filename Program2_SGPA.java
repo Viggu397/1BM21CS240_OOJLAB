@@ -2,21 +2,50 @@ import java.util.Scanner;
 
 class Student {
 
-	void Display(String name, String USN){
+	String name,USN;
+	int marks[] = new int[10];
+	int credits[] = new int[10];
+	double SGPA=0;
+	int n;
+
+	Scanner s=new Scanner(System.in);
+
+	void Input(){
+		System.out.println();
+		System.out.print("Enter name of the student: ");
+		name=s.nextLine();
+		System.out.print("Enter USN: ");
+		USN=s.nextLine();
+		System.out.print("Enter the number of courses: ");
+		n=s.nextInt();
+		
+		for(int i=0;i<n;i++){
+			System.out.println();
+			System.out.println("Enter the credits of subject "+(i+1));
+			credits[i]=s.nextInt();
+			System.out.println("Enter the marks of subject "+(i+1));
+			marks[i]=s.nextInt();
+		}
+
+	}
+
+	void Display(){
+		System.out.println();
 		System.out.println("NAME :"+name);
 		System.out.println("USN: "+USN);
+		System.out.println("SGPA is "+SGPA);
 	}
 
-	void CalcSGPA(int marks[], int credits[]){
-	double SGPA=0, grade=0, totalcred=0;
-	int i;
+	void CalcSGPA(){
+		double grade=0, totalcred=0;
+		int i;
 
-	for(i=0;i<5;i++){
+	for(i=0;i<n;i++){
 		totalcred=totalcred+credits[i];
-	}
+		}
 
 
-	for(i=0;i<5;i++){
+	for(i=0;i<n;i++){
 
 		if(marks[i]>=90)
 		{
@@ -47,40 +76,19 @@ class Student {
 		}
 	}
 
-		SGPA=grade/totalcred;
-		System.out.println("SGPA is "+SGPA);
+	SGPA=grade/totalcred;
 	}
 }
 
 
 class SGPA{
 	public static void main(String args[]){
-		Scanner s=new Scanner(System.in);
-
-		System.out.println("Enter name of the student");
-		String name=s.nextLine();
-		System.out.println("Enter USN");
-		String USN=s.nextLine();
 
 		Student st= new Student();
 
-		int marks[]=new int[5];
-		int credits[] = new int[5];
-
-		for(int i=0;i<5;i++){
-			System.out.println("Enter the credits of subject "+(i+1));
-			credits[i]=s.nextInt();
-		}
-
-		System.out.println("Enter the marks");
-
-		for(int i=0;i<5;i++){
-			System.out.println("subject "+(i+1));
-			marks[i]=s.nextInt();
-		}
-
-		st.Display(name,USN);
-		st.CalcSGPA(marks,credits);
+		st.Input();
+		st.CalcSGPA();
+		st.Display();
 	}
 }
 
